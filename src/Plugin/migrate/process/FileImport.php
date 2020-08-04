@@ -189,7 +189,7 @@ class FileImport extends FileCopy {
 
     // Build the destination file uri (in case only a directory was provided).
     $destination = $this->getDestinationFilePath($source, $destination);
-    if (!StreamWrapperManagerInterface::getScheme($destination)) {
+    if (!$this->streamWrapperManager->getScheme($destination)) {
       if (empty($destination)) {
         $destination = \Drupal::config('system.file')->get('default_scheme') . '://' . preg_replace('/^\//' ,'', $destination);
       }
