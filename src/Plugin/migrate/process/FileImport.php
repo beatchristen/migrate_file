@@ -325,7 +325,10 @@ class FileImport extends FileCopy {
   protected function getDestinationFilePath($source, $destination) {
     if ($this->isDirectory($destination)) {
       $parsed_url = parse_url($source);
-      $filepath = $destination . \Drupal\Core\File\FileSystem::basename($parsed_url['path']);
+      /** @var FileSystemInterface $fs */
+      $fs = \Drupal::service('file_system');
+      $basename = $fs->basename($parsed_url['path']);
+      $filepath = $destination . $basename;
     }
     else {
       $filepath = $destination;
